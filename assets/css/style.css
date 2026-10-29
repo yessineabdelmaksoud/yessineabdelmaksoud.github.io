@@ -41,13 +41,13 @@
 
 /* Base */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
   font: 400 var(--step-0)/1.6 var(--text);
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color .4s var(--ease), color .4s var(--ease);
 }
 img { display: block; max-width: 100%; height: auto; }
@@ -387,20 +387,83 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .flow li:nth-child(4) { --i: 3; }
 .flow li:nth-child(5) { --i: 4; }
 
-.js .timeline li[data-s3d] {
-  transform-origin: 50% 0;
-  transform: rotateX(calc(var(--q) * -70deg)) translate3d(0, calc(var(--q) * 30px), 0);
-  opacity: calc(var(--p));
+/* Experience: a drum. Items tilt and recede the further they are from the middle of the screen */
+.timeline::after {
+  content: ""; position: absolute; left: calc(11.5em - .5px); top: 0; bottom: 0; width: 2px;
+  background: var(--accent); transform-origin: 50% 0; transform: scaleY(var(--tl, 0));
 }
+.js .timeline > li {
+  transform: perspective(900px) translateZ(calc(var(--ad, 0) * -90px)) rotateX(calc(var(--d, 0) * -24deg));
+  opacity: calc(1 - var(--ad, 0) * .55);
+  will-change: transform, opacity;
+}
+.timeline > li.passed summary::before { border-color: var(--accent); }
 
 .js .edu[data-s3d] { transform-origin: 0 50%; transform: rotateY(calc(var(--q) * 30deg)) translate3d(calc(var(--q) * -40px), 0, 0); opacity: calc(.2 + var(--p) * .8); }
 .js .toolkit[data-s3d] { transform-origin: 100% 50%; transform: rotateY(calc(var(--q) * -30deg)) translate3d(calc(var(--q) * 40px), 0, 0); opacity: calc(.2 + var(--p) * .8); }
 .js .more[data-s3d] { transform: rotateX(calc(var(--q) * 35deg)); transform-origin: 50% 100%; opacity: calc(.2 + var(--p) * .8); }
 
-.js .contact h2[data-s3d] {
-  transform-origin: 0 100%;
-  transform: rotateX(calc(var(--q) * 80deg)) translate3d(0, calc(var(--q) * 40px), 0);
-  opacity: calc(var(--p));
+/* Contact: letters flip up one after another */
+.contact h2[data-split] { perspective: 700px; }
+.contact h2 .w { display: inline-block; white-space: nowrap; }
+.contact h2 .ch {
+  display: inline-block; transform-origin: 50% 100%;
+  --cp: clamp(0, calc(var(--p) * 2.2 - var(--ci) * .04), 1);
+  transform: translate3d(0, calc((1 - var(--cp)) * .35em), 0) rotateX(calc((1 - var(--cp)) * -100deg));
+  opacity: var(--cp);
+}
+
+/* Links that roll like a cube on hover */
+[data-roll] { perspective: 500px; }
+.roll { display: inline-grid; transform-style: preserve-3d; transition: transform .55s var(--ease); line-height: 1.2; }
+.roll-face { grid-area: 1 / 1; transform: translateZ(.6em); backface-visibility: hidden; }
+.roll-bottom { transform: rotateX(-90deg) translateZ(.6em); }
+[data-roll]:hover .roll, [data-roll]:focus-visible .roll { transform: rotateX(90deg); }
+
+/* Magnetic: main.js nudges these toward the pointer */
+[data-magnet] { transition: translate .35s var(--ease), background-color .2s, color .2s, border-color .2s, background-size .5s var(--ease); }
+
+/* Background: skills globe */
+.globe {
+  position: relative; width: min(100%, 400px); aspect-ratio: 1; margin: .6rem auto 1.6rem;
+  cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+}
+.globe.dragging { cursor: grabbing; }
+.globe span {
+  position: absolute; left: 50%; top: 50%;
+  white-space: nowrap; font-weight: 600; font-size: .9rem; line-height: 1;
+  transform: translate(-50%, -50%); will-change: transform, opacity;
+  transition: color .3s;
+}
+.globe span.front { color: var(--accent); }
+.globe::before {
+  content: ""; position: absolute; inset: 8%; border-radius: 50%;
+  border: 1px dashed var(--line);
+}
+
+/* Projects: on larger screens, cases pin and stack; the one underneath recedes */
+@media (min-width: 961px) and (min-height: 700px) {
+  .case-stack { padding-bottom: 4vh; }
+  .case {
+    position: sticky; top: calc(88px + var(--idx) * 14px);
+    background: var(--surface);
+    border: 1px solid var(--line); border-radius: 28px;
+    padding: clamp(32px, 4vw, 52px);
+    margin-bottom: 22vh;
+    min-height: min(540px, calc(100vh - 180px));
+    align-content: center;
+    opacity: calc(2 - var(--c2, 0));
+    box-shadow: 0 40px 80px -50px rgba(18, 26, 46, .5);
+    transform-origin: 50% 0;
+    transform: perspective(1400px) translateZ(calc(var(--c, 0) * -140px)) rotateX(calc(var(--c, 0) * 7deg));
+  }
+  .case:last-child { margin-bottom: 0; }
+  .case::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: var(--bg); opacity: calc(var(--c, 0) * .7);
+  }
+  .case .flow li:not(.out) { background: var(--bg); }
+  .more { margin-top: clamp(48px, 6vw, 80px); border-top: 0; }
 }
 
 /* Responsive */
@@ -424,6 +487,7 @@ p { margin: 0 0 1em; max-width: 66ch; }
   }
   .more ul { grid-template-columns: 1fr; }
   .timeline::before { left: 5px; }
+  .timeline::after { left: 4.5px; }
   .timeline summary { grid-template-columns: 1fr auto; gap: .3rem 1rem; padding-left: 1.6rem; }
   .timeline summary::before { left: 0; top: 1.55rem; }
   .when { grid-column: 1; grid-row: 1; }
@@ -439,4 +503,7 @@ p { margin: 0 0 1em; max-width: 66ch; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .bar i { transform: none; }
   .js [data-s3d] { --p: 1 !important; }
+  .js .timeline > li { transform: none; opacity: 1; }
+  .case { transform: none !important; }
+  .case::after { display: none; }
 }

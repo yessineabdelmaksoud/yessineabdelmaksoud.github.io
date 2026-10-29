@@ -129,8 +129,8 @@
           <li>Freelance web developer, and software developer at YouTestMe</li>
         </ul>
         <div class="actions">
-          <a class="btn primary" href="mailto:yessineabdelmaksoud03@gmail.com?subject=Internship%20opportunity">Email me</a>
-          <a class="btn" href="/assets/cv/yessine-abdelmaksoud-cv.pdf" download>Download CV</a>
+          <a class="btn primary" data-roll data-magnet href="mailto:yessineabdelmaksoud03@gmail.com?subject=Internship%20opportunity">Email me</a>
+          <a class="btn" data-roll data-magnet href="/assets/cv/yessine-abdelmaksoud-cv.pdf" download>Download CV</a>
         </div>
         </div>
       </div>
@@ -175,7 +175,8 @@
         <p>Each project is drawn as the path its data takes, from what comes in to what someone gets out of it.</p>
       </div>
 
-      <article class="case" id="cicd-agents">
+      <div class="case-stack">
+      <article class="case" style="--idx:0" id="cicd-agents">
         <div class="case-text" data-s3d>
           <h3>Agentic CI/CD remediation</h3>
           <p class="where">Built during my AI / DevOps internship at KPIT Technologies</p>
@@ -191,7 +192,7 @@
         </ol>
       </article>
 
-      <article class="case" id="soc-llm">
+      <article class="case" style="--idx:1" id="soc-llm">
         <div class="case-text" data-s3d>
           <h3>AI-augmented security operations</h3>
           <p class="where">Deployed in the Faculty of Sciences of Sfax data center</p>
@@ -210,7 +211,7 @@
         </ol>
       </article>
 
-      <article class="case" id="llm-5g">
+      <article class="case" style="--idx:2" id="llm-5g">
         <div class="case-text" data-s3d>
           <h3>Fine-tuned LLM for 5G network diagnostics</h3>
           <p>Fine-tuned Qwen2.5-1.5B-Instruct with LoRA and 4-bit quantization to explain why 5G throughput drops, using drive-test logs and gNodeB parameters. It picks the right root cause out of 8 classes more than four times as often as chance, while training only 1.18% of its parameters.</p>
@@ -228,7 +229,7 @@
         </ol>
       </article>
 
-      <article class="case" id="stressoff">
+      <article class="case" style="--idx:3" id="stressoff">
         <div class="case-text" data-s3d>
           <h3>StressOFF, a multimodal wellness app</h3>
           <p>Combines wearable data, meal photos and your calendar to understand stress and nutrition, then talks it through with you. Four FastAPI microservices with streaming and output validation, Firebase auth, shipped in Docker to Azure Container Instances.</p>
@@ -242,7 +243,7 @@
         </ol>
       </article>
 
-      <article class="case" id="fraud">
+      <article class="case" style="--idx:4" id="fraud">
         <div class="case-text" data-s3d>
           <h3>Electricity and gas fraud detection</h3>
           <p>Turns raw utility billing records into predictive features, compares classifiers, and tunes the decision threshold to the cost of a missed fraud. Investigators get a prediction API, dashboards, alerts, and an explanation for every flag.</p>
@@ -255,7 +256,7 @@
         </ol>
       </article>
 
-      <article class="case" id="cubesat">
+      <article class="case" style="--idx:5" id="cubesat">
         <div class="case-text" data-s3d>
           <h3>Real-time anomaly detection for a CubeSat</h3>
           <p class="where">5th place, IEEE TSYB 13 AESS Challenge, 2025</p>
@@ -269,6 +270,7 @@
           <li class="out"><b>SEL alert</b><span>real time</span></li>
         </ol>
       </article>
+      </div>
 
       <div class="more" data-s3d>
         <h3>More on GitHub</h3>
@@ -286,7 +288,7 @@
     <section class="experience band" id="experience" aria-labelledby="exp-h">
       <h2 id="exp-h">Experience</h2>
       <ol class="timeline">
-        <li data-s3d>
+        <li>
           <details open>
             <summary><span class="when">Jun 2026 to now</span><span class="what"><b>Software Developer / AI Engineer</b> YouTestMe, remote</span></summary>
             <ul>
@@ -297,7 +299,7 @@
             </ul>
           </details>
         </li>
-        <li data-s3d>
+        <li>
           <details>
             <summary><span class="when">Ongoing</span><span class="what"><b>CTO</b> Trinova, Sfax</span></summary>
             <ul>
@@ -306,7 +308,7 @@
             </ul>
           </details>
         </li>
-        <li data-s3d>
+        <li>
           <details>
             <summary><span class="when">Aug 2025, Jun 2026</span><span class="what"><b>AI / DevOps Intern</b> KPIT Technologies, Sfax</span></summary>
             <ul>
@@ -316,7 +318,7 @@
             </ul>
           </details>
         </li>
-        <li data-s3d>
+        <li>
           <details>
             <summary><span class="when">Aug 2025</span><span class="what"><b>AI / DevOps Intern</b> Primatec, Sfax</span></summary>
             <ul>
@@ -325,7 +327,7 @@
             </ul>
           </details>
         </li>
-        <li data-s3d>
+        <li>
           <details>
             <summary><span class="when">Jun to Jul 2025</span><span class="what"><b>Data Scientist Intern</b> Telcotec, Sfax</span></summary>
             <ul>
@@ -364,6 +366,38 @@
         </div>
         <div class="toolkit" data-s3d>
           <h3>Toolkit</h3>
+          <div class="globe" aria-hidden="true">
+            <span>Python</span>
+            <span>SQL</span>
+            <span>C++</span>
+            <span>LangGraph</span>
+            <span>RAG</span>
+            <span>AI agents</span>
+            <span>PyTorch</span>
+            <span>TensorFlow</span>
+            <span>scikit-learn</span>
+            <span>Hugging Face</span>
+            <span>LoRA</span>
+            <span>FastAPI</span>
+            <span>Docker</span>
+            <span>Kubernetes</span>
+            <span>Spark</span>
+            <span>PostgreSQL</span>
+            <span>Power BI</span>
+            <span>MLflow</span>
+            <span>Azure</span>
+            <span>Linux</span>
+            <span>Grafana</span>
+            <span>React</span>
+            <span>NLP</span>
+            <span>Computer vision</span>
+            <span>ETL</span>
+            <span>Jenkins</span>
+            <span>GitLab CI</span>
+            <span>Prometheus</span>
+            <span>Ollama</span>
+            <span>Pandas</span>
+          </div>
           <dl>
             <div><dt>Languages</dt><dd>Python, SQL, C++, JavaScript</dd></div>
             <div><dt>AI and LLMs</dt><dd>RAG, LangGraph, AI agents, Hugging Face, LoRA, quantization, embeddings, reranking</dd></div>
@@ -378,14 +412,14 @@
     </section>
 
     <section class="contact band" id="contact" aria-labelledby="contact-h">
-      <h2 id="contact-h" data-s3d>Hiring for a 2027 PFE internship?</h2>
+      <h2 id="contact-h" data-s3d data-split>Hiring for a 2027 PFE internship?</h2>
       <p>I'm looking for a final-year internship in AI, data or software engineering, in Tunisia or remote. If you need a website or an automation instead, write to me too.</p>
-      <a class="big-mail" href="mailto:yessineabdelmaksoud03@gmail.com">yessineabdelmaksoud03@gmail.com</a>
+      <a class="big-mail" data-magnet href="mailto:yessineabdelmaksoud03@gmail.com">yessineabdelmaksoud03@gmail.com</a>
       <ul class="links">
-        <li><a href="https://www.linkedin.com/in/yessine-abdelmaksoud" rel="noopener me" target="_blank">LinkedIn</a></li>
-        <li><a href="https://github.com/yessineabdelmaksoud" rel="noopener me" target="_blank">GitHub</a></li>
-        <li><a href="https://www.instagram.com/trinova.tn/" rel="noopener" target="_blank">Trinova</a></li>
-        <li><a href="/assets/cv/yessine-abdelmaksoud-cv.pdf" download>CV (PDF)</a></li>
+        <li><a data-roll data-magnet href="https://www.linkedin.com/in/yessine-abdelmaksoud" rel="noopener me" target="_blank">LinkedIn</a></li>
+        <li><a data-roll data-magnet href="https://github.com/yessineabdelmaksoud" rel="noopener me" target="_blank">GitHub</a></li>
+        <li><a data-roll data-magnet href="https://www.instagram.com/trinova.tn/" rel="noopener" target="_blank">Trinova</a></li>
+        <li><a data-roll data-magnet href="/assets/cv/yessine-abdelmaksoud-cv.pdf" download>CV (PDF)</a></li>
       </ul>
     </section>
   </main>
