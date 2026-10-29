@@ -288,70 +288,76 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .more a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: .2em; }
 .more span { color: var(--muted); font-size: var(--step--1); }
 
-/* Experience timeline: an accordion. On large screens it is pinned and scrolling opens one job at a time */
-.timeline { list-style: none; margin: 0; padding: 0; position: relative; }
-.timeline::before { content: ""; position: absolute; left: 11.5em; top: 0; bottom: 0; width: 1px; background: var(--line); }
-.timeline::after {
-  content: ""; position: absolute; left: calc(11.5em - .5px); top: 0; bottom: 0; width: 2px;
-  background: var(--accent); transform-origin: 50% 0; transform: scaleY(var(--tl, 0));
-  transition: transform .25s linear;
+/* Experience: a split story. Chapters scroll on the right; the stage on the left stays put
+   and rolls like a drum to the job being read */
+.story { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); }
+.stage { position: sticky; top: 20vh; align-self: start; height: min(440px, 62vh); display: flex; flex-direction: column; }
+.stage-roll { position: relative; flex: 1; perspective: 1200px; overflow: hidden; }
+.stage-face {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  transform-origin: 50% 50% -260px;
+  backface-visibility: hidden;
+  transition: transform 1.1s cubic-bezier(.7, 0, .2, 1), opacity .4s ease-in;
 }
-.job { border-bottom: 1px solid var(--line); position: relative; }
-.job-head {
-  all: unset; box-sizing: border-box; width: 100%; cursor: pointer;
-  display: grid; grid-template-columns: 10.5em 1fr auto; gap: 2em; align-items: baseline;
-  padding: 1.3rem 0; position: relative;
+.stage-face.is-after { transform: rotateX(-95deg); opacity: 0; }
+.stage-face.is-before { transform: rotateX(95deg); opacity: 0; }
+.stage-face.is-active { transform: none; opacity: 1; transition: transform 1.1s cubic-bezier(.7, 0, .2, 1), opacity .55s .4s ease-out; }
+.stage-mark {
+  font: 850 clamp(4rem, 9vw, 7.5rem)/.85 var(--display); font-stretch: 120%;
+  color: transparent; -webkit-text-stroke: 1.5px var(--line);
+  margin-bottom: .9rem; letter-spacing: -.02em; white-space: nowrap;
 }
-.job-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
-.job-head::before {
-  content: ""; position: absolute; left: calc(11.5em - 5px); top: 1.85rem; z-index: 1;
-  width: 11px; height: 11px; border-radius: 50%;
-  background: var(--bg); border: 2px solid var(--ink);
-  transition: background-color .35s, border-color .35s, transform .5s var(--ease);
+.stage-role { font: 800 var(--step-3)/1.02 var(--display); font-stretch: 88%; max-width: 12ch; }
+.stage-org {
+  margin-top: .9rem; font-size: var(--step-1); font-weight: 600; color: var(--accent);
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+  padding-bottom: .2em;
+  transition: background-size .8s .5s var(--ease);
 }
-.job-head::after {
-  content: "+"; font: 400 1.6rem/1 var(--display); color: var(--muted);
-  transition: transform .5s var(--ease);
-}
-.job.passed .job-head::before { border-color: var(--accent); }
-.job.open .job-head::before { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
-.job.open .job-head::after { transform: rotate(45deg); }
-.when { color: var(--muted); font-size: var(--step--1); }
-.what { display: flex; flex-wrap: wrap; column-gap: .8em; align-items: baseline; }
-.what b { font: 700 var(--step-1)/1.2 var(--display); font-stretch: 95%; transition: color .35s; }
-.job-head:hover .what b, .job.open .what b { color: var(--accent); }
+.stage-face.is-active .stage-org { background-size: 100% 2px; }
+.stage-when { margin-top: .5rem; color: var(--muted); font-size: var(--step--1); }
+.stage-nav { display: flex; align-items: center; gap: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.stage-dots { display: flex; gap: 8px; }
+.stage-dots i { width: 8px; height: 8px; border-radius: 99px; background: var(--line); transition: width .6s var(--ease), background-color .4s; }
+.stage-dots i.on { width: 28px; background: var(--accent); }
+.stage-dots i.done { background: var(--ink); }
+.stage-count { color: var(--muted); font-size: var(--step--1); font-variant-numeric: tabular-nums; }
 
-.exp-pin > h2 { margin-bottom: clamp(24px, 4vw, 40px); }
-
-/* Height animates from 0 to the content's real height */
-.job-body { display: grid; grid-template-rows: 1fr; }
-.job-body > div { overflow: hidden; min-height: 0; }
-.job-body ul { margin: 0 0 1.6rem calc(10.5em + 2em); padding: 0 0 0 1.1em; color: var(--muted); max-width: 68ch; }
-.job-body li { margin: .35em 0; }
-.job-body li::marker { color: var(--olive); }
-.js .job-body {
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .7s var(--ease);
+.chapters { list-style: none; margin: 0; padding: 0 0 18vh; }
+.chapter {
+  min-height: 62vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 2rem 0 2rem clamp(20px, 3vw, 40px);
+  border-left: 2px solid var(--line);
+  transition: opacity .6s var(--ease), border-color .6s var(--ease);
 }
-.js .job-body ul {
-  opacity: 0; transform: perspective(800px) rotateX(-12deg) translateY(-10px); transform-origin: 50% 0;
-  transition: opacity .35s, transform .7s var(--ease);
-}
-.js .job.open .job-body { grid-template-rows: 1fr; }
-.js .job.open .job-body ul { opacity: 1; transform: none; transition-delay: .15s; }
-.js .job:not(.open) .what b { color: var(--ink); }
-.js .job.open .job-head:hover .what b, .js .job:not(.open) .job-head:hover .what b { color: var(--accent); }
+.chapter h3 { display: flex; flex-direction: column; gap: .25rem; margin-bottom: 1rem; }
+.chapter-when { color: var(--muted); font: 400 var(--step--1)/1.4 var(--text); }
+.chapter-role { font-size: var(--step-1); }
+.chapter-org { font: 600 var(--step-0)/1.4 var(--text); color: var(--accent); }
+.chapter ul { margin: 0; padding: 0 0 0 1.1em; color: var(--muted); max-width: 60ch; }
+.chapter li { margin: .45em 0; }
+.chapter li::marker { color: var(--olive); }
+.js .chapter:not(.is-active) { opacity: .32; }
+.chapter.is-active { border-left-color: var(--accent); }
+.js .chapter li { transition: transform .7s var(--ease), color .5s; }
+.js .chapter:not(.is-active) li { transform: translateX(14px); }
+.js .chapter.is-active li:nth-child(2) { transition-delay: .06s; }
+.js .chapter.is-active li:nth-child(3) { transition-delay: .12s; }
+.js .chapter.is-active li:nth-child(4) { transition-delay: .18s; }
+.chapter.is-active ul { color: var(--ink); }
 
-/* Pinned mode (main.js adds .pinned when the timeline fits on screen): each job gets its own stretch of scrolling */
-.js .exp-track.pinned::after { content: ""; display: block; height: calc(var(--jobs, 5) * 45vh); }
-.js .exp-track.pinned .exp-pin { position: sticky; top: var(--pin-top, 96px); }
-.js .exp-track.pinned .exp-pin > h2 { margin-bottom: 20px; }
-.js .exp-track.pinned .job-head { padding: 1rem 0; }
-.js .exp-track.pinned .job-head::before { top: 1.55rem; }
-.js .exp-track.pinned .job-body ul { margin-bottom: 1.2rem; }
-.js .exp-track .job { transition: opacity .5s; }
-.js .exp-track.pinned .job:not(.open) { opacity: .55; }
-.js .exp-track.pinned .job:not(.open):hover { opacity: 1; }
+/* On wide screens the stage already names the role, so the chapter heading steps back */
+@media (min-width: 901px) {
+  .chapter-role { font: 600 var(--step-0)/1.4 var(--text); color: var(--ink); }
+}
+@media (max-width: 900px) {
+  .story { grid-template-columns: 1fr; }
+  .stage { display: none; }
+  .chapter { min-height: 0; padding-block: 1.6rem; }
+  .chapters { padding-bottom: 0; }
+  .js .chapter:not(.is-active) { opacity: .55; }
+}
 
 /* Background */
 .bg-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); }
@@ -504,14 +510,6 @@ p { margin: 0 0 1em; max-width: 66ch; }
     to { font-stretch: 96%; }
   }
   .more ul { grid-template-columns: 1fr; }
-  .timeline::before { left: 5px; }
-  .timeline::after { left: 4.5px; }
-  .job-head { grid-template-columns: 1fr auto; gap: .3rem 1rem; padding-left: 1.6rem; }
-  .job-head::before { left: 0; top: 1.55rem; }
-  .when { grid-column: 1; grid-row: 1; }
-  .what { grid-column: 1; grid-row: 2; }
-  .job-head::after { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
-  .job-body ul { margin-left: 1.6rem; }
   .meter-row { grid-template-columns: 7em 1fr 3.8em; gap: .6rem; }
 }
 
