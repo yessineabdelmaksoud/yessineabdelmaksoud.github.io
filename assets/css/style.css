@@ -207,8 +207,10 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .text-link:hover { color: var(--accent); }
 
 /* Now */
-.now-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 56px) clamp(24px, 5vw, 64px); }
-.now-foot { margin-top: clamp(32px, 5vw, 48px); color: var(--muted); }
+.now-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 48px); }
+.services { list-style: none; margin: 0 0 1em; padding: 0; color: var(--muted); }
+.services li { padding: .55em 0; border-top: 1px solid var(--line); }
+.services b { color: var(--ink); font-weight: 600; }
 .now-grid article { border-top: 2px solid var(--ink); padding-top: 1.2rem; }
 .now-grid article:first-child { border-top-color: var(--accent); }
 .now-grid h3 { margin-bottom: .8rem; }
@@ -365,7 +367,11 @@ p { margin: 0 0 1em; max-width: 66ch; }
   transform: translate3d(0, calc(var(--q) * 60px), calc(var(--q) * -220px)) rotateY(calc(var(--q) * 38deg)) rotateX(calc(var(--q) * 14deg));
   opacity: calc(.15 + var(--p) * .85);
 }
-.js .now-grid article:nth-child(even)[data-s3d] {
+.js .now-grid article:nth-child(2)[data-s3d] {
+  transform-origin: 50% 100%;
+  transform: translate3d(0, calc(var(--q) * 80px), calc(var(--q) * -260px)) rotateX(calc(var(--q) * 40deg));
+}
+.js .now-grid article:nth-child(3)[data-s3d] {
   transform-origin: 100% 50%;
   transform: translate3d(0, calc(var(--q) * 60px), calc(var(--q) * -220px)) rotateY(calc(var(--q) * -38deg)) rotateX(calc(var(--q) * 14deg));
 }
@@ -405,7 +411,7 @@ p { margin: 0 0 1em; max-width: 66ch; }
   .portrait { justify-self: start; width: min(64vw, 300px); margin: 0 0 2rem; }
   .portrait figcaption { display: none; }
   .now-grid { grid-template-columns: 1fr; }
-  .js .now-grid article:nth-child(even)[data-s3d] { transform-origin: 0 50%; transform: translate3d(0, calc(var(--q) * 60px), calc(var(--q) * -220px)) rotateY(calc(var(--q) * 38deg)) rotateX(calc(var(--q) * 14deg)); }
+  .js .now-grid article:nth-child(n)[data-s3d] { transform-origin: 0 50%; transform: translate3d(0, calc(var(--q) * 60px), calc(var(--q) * -220px)) rotateY(calc(var(--q) * 38deg)) rotateX(calc(var(--q) * 14deg)); }
   .case { grid-template-columns: 1fr; }
   .bg-grid { grid-template-columns: 1fr; }
 }

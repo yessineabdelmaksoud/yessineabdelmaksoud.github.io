@@ -50,7 +50,7 @@
   // Scroll-driven 3D: --p goes from 0 as an element enters to 1 once it is in place
   var s3d = Array.prototype.slice.call(document.querySelectorAll('[data-s3d]'));
   if (s3d.length && !reduce) {
-    document.querySelectorAll('.now-grid article').forEach(function (el, i) { el.s3dDelay = (i % 2) * 0.18; });
+    document.querySelectorAll('.now-grid article').forEach(function (el, i) { el.s3dDelay = i * 0.12; });
     var ticking = false;
     var update = function () {
       ticking = false;
