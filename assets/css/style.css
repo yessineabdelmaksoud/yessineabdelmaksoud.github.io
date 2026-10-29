@@ -288,38 +288,70 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .more a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: .2em; }
 .more span { color: var(--muted); font-size: var(--step--1); }
 
-/* Experience timeline */
+/* Experience timeline: an accordion. On large screens it is pinned and scrolling opens one job at a time */
 .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
 .timeline::before { content: ""; position: absolute; left: 11.5em; top: 0; bottom: 0; width: 1px; background: var(--line); }
-.timeline details { border-bottom: 1px solid var(--line); }
-.timeline summary {
-  list-style: none; cursor: pointer;
-  display: grid; grid-template-columns: 10.5em 1fr auto; gap: 2em; align-items: baseline;
-  padding: 1.3rem 0;
-  position: relative;
+.timeline::after {
+  content: ""; position: absolute; left: calc(11.5em - .5px); top: 0; bottom: 0; width: 2px;
+  background: var(--accent); transform-origin: 50% 0; transform: scaleY(var(--tl, 0));
+  transition: transform .25s linear;
 }
-.timeline summary::-webkit-details-marker { display: none; }
-.timeline summary::before {
-  content: ""; position: absolute; left: calc(11.5em - 5px); top: 1.85rem;
+.job { border-bottom: 1px solid var(--line); position: relative; }
+.job-head {
+  all: unset; box-sizing: border-box; width: 100%; cursor: pointer;
+  display: grid; grid-template-columns: 10.5em 1fr auto; gap: 2em; align-items: baseline;
+  padding: 1.3rem 0; position: relative;
+}
+.job-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.job-head::before {
+  content: ""; position: absolute; left: calc(11.5em - 5px); top: 1.85rem; z-index: 1;
   width: 11px; height: 11px; border-radius: 50%;
   background: var(--bg); border: 2px solid var(--ink);
-  transition: background-color .25s, border-color .25s;
+  transition: background-color .35s, border-color .35s, transform .5s var(--ease);
 }
-.timeline details[open] summary::before { background: var(--accent); border-color: var(--accent); }
-.timeline summary::after {
+.job-head::after {
   content: "+"; font: 400 1.6rem/1 var(--display); color: var(--muted);
-  transition: transform .35s var(--ease);
+  transition: transform .5s var(--ease);
 }
-.timeline details[open] summary::after { transform: rotate(45deg); }
+.job.passed .job-head::before { border-color: var(--accent); }
+.job.open .job-head::before { background: var(--accent); border-color: var(--accent); transform: scale(1.35); }
+.job.open .job-head::after { transform: rotate(45deg); }
 .when { color: var(--muted); font-size: var(--step--1); }
 .what { display: flex; flex-wrap: wrap; column-gap: .8em; align-items: baseline; }
-.what b { font: 700 var(--step-1)/1.2 var(--display); font-stretch: 95%; }
-.timeline summary:hover .what b { color: var(--accent); }
-.timeline details ul { margin: 0 0 1.6rem calc(10.5em + 2em); padding: 0 0 0 1.1em; color: var(--muted); max-width: 68ch; }
-.timeline details ul li { margin: .35em 0; }
-.timeline details ul li::marker { color: var(--olive); }
-.js .timeline details[open] ul { animation: open .45s var(--ease); }
-@keyframes open { from { opacity: 0; translate: 0 -8px; } }
+.what b { font: 700 var(--step-1)/1.2 var(--display); font-stretch: 95%; transition: color .35s; }
+.job-head:hover .what b, .job.open .what b { color: var(--accent); }
+
+.exp-pin > h2 { margin-bottom: clamp(24px, 4vw, 40px); }
+
+/* Height animates from 0 to the content's real height */
+.job-body { display: grid; grid-template-rows: 1fr; }
+.job-body > div { overflow: hidden; min-height: 0; }
+.job-body ul { margin: 0 0 1.6rem calc(10.5em + 2em); padding: 0 0 0 1.1em; color: var(--muted); max-width: 68ch; }
+.job-body li { margin: .35em 0; }
+.job-body li::marker { color: var(--olive); }
+.js .job-body {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .7s var(--ease);
+}
+.js .job-body ul {
+  opacity: 0; transform: perspective(800px) rotateX(-12deg) translateY(-10px); transform-origin: 50% 0;
+  transition: opacity .35s, transform .7s var(--ease);
+}
+.js .job.open .job-body { grid-template-rows: 1fr; }
+.js .job.open .job-body ul { opacity: 1; transform: none; transition-delay: .15s; }
+.js .job:not(.open) .what b { color: var(--ink); }
+.js .job.open .job-head:hover .what b, .js .job:not(.open) .job-head:hover .what b { color: var(--accent); }
+
+/* Pinned mode (main.js adds .pinned when the timeline fits on screen): each job gets its own stretch of scrolling */
+.js .exp-track.pinned::after { content: ""; display: block; height: calc(var(--jobs, 5) * 45vh); }
+.js .exp-track.pinned .exp-pin { position: sticky; top: var(--pin-top, 96px); }
+.js .exp-track.pinned .exp-pin > h2 { margin-bottom: 20px; }
+.js .exp-track.pinned .job-head { padding: 1rem 0; }
+.js .exp-track.pinned .job-head::before { top: 1.55rem; }
+.js .exp-track.pinned .job-body ul { margin-bottom: 1.2rem; }
+.js .exp-track .job { transition: opacity .5s; }
+.js .exp-track.pinned .job:not(.open) { opacity: .55; }
+.js .exp-track.pinned .job:not(.open):hover { opacity: 1; }
 
 /* Background */
 .bg-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); }
@@ -329,10 +361,6 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .edu p { color: var(--muted); }
 .plain { list-style: none; margin: 0; padding: 0; color: var(--muted); }
 .plain li { padding: .35em 0; }
-.toolkit dl { margin: 0; }
-.toolkit dl div { display: grid; grid-template-columns: 9.5em 1fr; gap: 1em; padding: .85rem 0; border-top: 1px solid var(--line); }
-.toolkit dt { font-weight: 600; }
-.toolkit dd { margin: 0; color: var(--muted); }
 
 /* Contact */
 .contact { text-align: left; }
@@ -359,7 +387,7 @@ p { margin: 0 0 1em; max-width: 66ch; }
 
 /* Scroll-driven 3D: main.js sets --p from 0 (entering) to 1 (in place) */
 [data-s3d] { --p: 1; --q: calc(1 - var(--p)); }
-.now-grid, .case, .timeline, .bg-grid, .contact { perspective: 1400px; }
+.now-grid, .case, .bg-grid, .contact { perspective: 1400px; }
 .js [data-s3d] { will-change: transform, opacity; }
 
 .js .now-grid article[data-s3d] {
@@ -387,17 +415,6 @@ p { margin: 0 0 1em; max-width: 66ch; }
 .flow li:nth-child(4) { --i: 3; }
 .flow li:nth-child(5) { --i: 4; }
 
-/* Experience: a drum. Items tilt and recede the further they are from the middle of the screen */
-.timeline::after {
-  content: ""; position: absolute; left: calc(11.5em - .5px); top: 0; bottom: 0; width: 2px;
-  background: var(--accent); transform-origin: 50% 0; transform: scaleY(var(--tl, 0));
-}
-.js .timeline > li {
-  transform: perspective(900px) translateZ(calc(var(--ad, 0) * -90px)) rotateX(calc(var(--d, 0) * -24deg));
-  opacity: calc(1 - var(--ad, 0) * .55);
-  will-change: transform, opacity;
-}
-.timeline > li.passed summary::before { border-color: var(--accent); }
 
 .js .edu[data-s3d] { transform-origin: 0 50%; transform: rotateY(calc(var(--q) * 30deg)) translate3d(calc(var(--q) * -40px), 0, 0); opacity: calc(.2 + var(--p) * .8); }
 .js .toolkit[data-s3d] { transform-origin: 100% 50%; transform: rotateY(calc(var(--q) * -30deg)) translate3d(calc(var(--q) * 40px), 0, 0); opacity: calc(.2 + var(--p) * .8); }
@@ -425,17 +442,18 @@ p { margin: 0 0 1em; max-width: 66ch; }
 
 /* Background: skills globe */
 .globe {
+  list-style: none; padding: 0;
   position: relative; width: min(100%, 400px); aspect-ratio: 1; margin: .6rem auto 1.6rem;
   cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
 }
 .globe.dragging { cursor: grabbing; }
-.globe span {
+.globe li {
   position: absolute; left: 50%; top: 50%;
   white-space: nowrap; font-weight: 600; font-size: .9rem; line-height: 1;
   transform: translate(-50%, -50%); will-change: transform, opacity;
   transition: color .3s;
 }
-.globe span.front { color: var(--accent); }
+.globe li.front { color: var(--accent); }
 .globe::before {
   content: ""; position: absolute; inset: 8%; border-radius: 50%;
   border: 1px dashed var(--line);
@@ -488,13 +506,12 @@ p { margin: 0 0 1em; max-width: 66ch; }
   .more ul { grid-template-columns: 1fr; }
   .timeline::before { left: 5px; }
   .timeline::after { left: 4.5px; }
-  .timeline summary { grid-template-columns: 1fr auto; gap: .3rem 1rem; padding-left: 1.6rem; }
-  .timeline summary::before { left: 0; top: 1.55rem; }
+  .job-head { grid-template-columns: 1fr auto; gap: .3rem 1rem; padding-left: 1.6rem; }
+  .job-head::before { left: 0; top: 1.55rem; }
   .when { grid-column: 1; grid-row: 1; }
   .what { grid-column: 1; grid-row: 2; }
-  .timeline summary::after { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
-  .timeline details ul { margin-left: 1.6rem; }
-  .toolkit dl div { grid-template-columns: 1fr; gap: .2em; }
+  .job-head::after { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .job-body ul { margin-left: 1.6rem; }
   .meter-row { grid-template-columns: 7em 1fr 3.8em; gap: .6rem; }
 }
 
@@ -503,7 +520,6 @@ p { margin: 0 0 1em; max-width: 66ch; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .bar i { transform: none; }
   .js [data-s3d] { --p: 1 !important; }
-  .js .timeline > li { transform: none; opacity: 1; }
   .case { transform: none !important; }
   .case::after { display: none; }
 }

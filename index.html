@@ -286,57 +286,71 @@
     </section>
 
     <section class="experience band" id="experience" aria-labelledby="exp-h">
-      <h2 id="exp-h">Experience</h2>
-      <ol class="timeline">
-        <li>
-          <details open>
-            <summary><span class="when">Jun 2026 to now</span><span class="what"><b>Software Developer / AI Engineer</b> YouTestMe, remote</span></summary>
-            <ul>
-              <li>Modernizing the GetCertified platform by rebuilding core test-taking workflows in React on top of Java REST APIs, without breaking legacy behaviour.</li>
-              <li>Building one administration dashboard that pulls data from many product instances for monitoring and analytics.</li>
-              <li>Building a RAG knowledge assistant that answers from internal docs and runbooks, with source citations.</li>
-              <li>Forecasting storage, testing activity and concurrent users from historical data to plan capacity ahead.</li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><span class="when">Ongoing</span><span class="what"><b>CTO</b> Trinova, Sfax</span></summary>
-            <ul>
-              <li>Lead the technical side of a small studio building websites, web apps, AI solutions and automations for local businesses.</li>
-              <li>Choose architecture and stack, review code, and take projects from prototype to deployment.</li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><span class="when">Aug 2025, Jun 2026</span><span class="what"><b>AI / DevOps Intern</b> KPIT Technologies, Sfax</span></summary>
-            <ul>
-              <li>Architected an AI-driven CI/CD remediation platform for embedded software with three agents: failure diagnosis, patch generation and code review.</li>
-              <li>Automated root-cause analysis and patch validation with LangGraph, FastAPI and GitLab CI, with human approval before merge.</li>
-              <li>Integrated K3s, Redis, MinIO, Ollama and Claude, plus Prometheus, Grafana and Loki for reliability and observability.</li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><span class="when">Aug 2025</span><span class="what"><b>AI / DevOps Intern</b> Primatec, Sfax</span></summary>
-            <ul>
-              <li>Built a LangGraph CI/CD assistant that reads Jenkins build failures and returns a root-cause diagnosis with fixes to try.</li>
-              <li>Added real-time pipeline monitoring, failure notifications, automatic retries and smarter error handling.</li>
-            </ul>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary><span class="when">Jun to Jul 2025</span><span class="what"><b>Data Scientist Intern</b> Telcotec, Sfax</span></summary>
-            <ul>
-              <li>Built an end-to-end ML pipeline for indoor WiFi: extracting data from building plans, predicting path loss and optimizing access point placement.</li>
-              <li>Built interactive 2D and 3D coverage heatmaps across multiple floors for network planners.</li>
-            </ul>
-          </details>
-        </li>
-      </ol>
+      <div class="exp-track">
+        <div class="exp-pin">
+          <h2 id="exp-h">Experience</h2>
+          <ol class="timeline">
+            <li class="job open">
+              <button class="job-head" type="button" aria-expanded="true" aria-controls="job-1"><span class="when">Jun 2026 to now</span><span class="what"><b>Software Developer / AI Engineer</b> YouTestMe, remote</span></button>
+              <div class="job-body" id="job-1">
+                <div>
+                  <ul>
+                    <li>Modernizing the GetCertified platform by rebuilding core test-taking workflows in React on top of Java REST APIs, without breaking legacy behaviour.</li>
+                    <li>Building one administration dashboard that pulls data from many product instances for monitoring and analytics.</li>
+                    <li>Building a RAG knowledge assistant that answers from internal docs and runbooks, with source citations.</li>
+                    <li>Forecasting storage, testing activity and concurrent users from historical data to plan capacity ahead.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="job">
+              <button class="job-head" type="button" aria-expanded="false" aria-controls="job-2"><span class="when">Ongoing</span><span class="what"><b>CTO</b> Trinova, Sfax</span></button>
+              <div class="job-body" id="job-2">
+                <div>
+                  <ul>
+                    <li>Lead the technical side of a small studio building websites, web apps, AI solutions and automations for local businesses.</li>
+                    <li>Choose architecture and stack, review code, and take projects from prototype to deployment.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="job">
+              <button class="job-head" type="button" aria-expanded="false" aria-controls="job-3"><span class="when">Aug 2025, Jun 2026</span><span class="what"><b>AI / DevOps Intern</b> KPIT Technologies, Sfax</span></button>
+              <div class="job-body" id="job-3">
+                <div>
+                  <ul>
+                    <li>Architected an AI-driven CI/CD remediation platform for embedded software with three agents: failure diagnosis, patch generation and code review.</li>
+                    <li>Automated root-cause analysis and patch validation with LangGraph, FastAPI and GitLab CI, with human approval before merge.</li>
+                    <li>Integrated K3s, Redis, MinIO, Ollama and Claude, plus Prometheus, Grafana and Loki for reliability and observability.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="job">
+              <button class="job-head" type="button" aria-expanded="false" aria-controls="job-4"><span class="when">Aug 2025</span><span class="what"><b>AI / DevOps Intern</b> Primatec, Sfax</span></button>
+              <div class="job-body" id="job-4">
+                <div>
+                  <ul>
+                    <li>Built a LangGraph CI/CD assistant that reads Jenkins build failures and returns a root-cause diagnosis with fixes to try.</li>
+                    <li>Added real-time pipeline monitoring, failure notifications, automatic retries and smarter error handling.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="job">
+              <button class="job-head" type="button" aria-expanded="false" aria-controls="job-5"><span class="when">Jun to Jul 2025</span><span class="what"><b>Data Scientist Intern</b> Telcotec, Sfax</span></button>
+              <div class="job-body" id="job-5">
+                <div>
+                  <ul>
+                    <li>Built an end-to-end ML pipeline for indoor WiFi: extracting data from building plans, predicting path loss and optimizing access point placement.</li>
+                    <li>Built interactive 2D and 3D coverage heatmaps across multiple floors for network planners.</li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
     </section>
 
     <section class="background band" id="background" aria-labelledby="bg-h">
@@ -366,47 +380,43 @@
         </div>
         <div class="toolkit" data-s3d>
           <h3>Toolkit</h3>
-          <div class="globe" aria-hidden="true">
-            <span>Python</span>
-            <span>SQL</span>
-            <span>C++</span>
-            <span>LangGraph</span>
-            <span>RAG</span>
-            <span>AI agents</span>
-            <span>PyTorch</span>
-            <span>TensorFlow</span>
-            <span>scikit-learn</span>
-            <span>Hugging Face</span>
-            <span>LoRA</span>
-            <span>FastAPI</span>
-            <span>Docker</span>
-            <span>Kubernetes</span>
-            <span>Spark</span>
-            <span>PostgreSQL</span>
-            <span>Power BI</span>
-            <span>MLflow</span>
-            <span>Azure</span>
-            <span>Linux</span>
-            <span>Grafana</span>
-            <span>React</span>
-            <span>NLP</span>
-            <span>Computer vision</span>
-            <span>ETL</span>
-            <span>Jenkins</span>
-            <span>GitLab CI</span>
-            <span>Prometheus</span>
-            <span>Ollama</span>
-            <span>Pandas</span>
-          </div>
-          <dl>
-            <div><dt>Languages</dt><dd>Python, SQL, C++, JavaScript</dd></div>
-            <div><dt>AI and LLMs</dt><dd>RAG, LangGraph, AI agents, Hugging Face, LoRA, quantization, embeddings, reranking</dd></div>
-            <div><dt>Machine learning</dt><dd>PyTorch, TensorFlow, scikit-learn, NLP, computer vision, model evaluation</dd></div>
-            <div><dt>Data engineering</dt><dd>Pandas, NumPy, PostgreSQL, Spark, ETL, data warehousing, Power BI</dd></div>
-            <div><dt>Backend and MLOps</dt><dd>FastAPI, Docker, Kubernetes, GitLab CI, Jenkins, MLflow</dd></div>
-            <div><dt>Web</dt><dd>React, responsive and accessible front ends, technical SEO</dd></div>
-            <div><dt>Cloud and ops</dt><dd>Azure, Oracle Cloud, Linux, Git, Prometheus, Grafana, Loki</dd></div>
-          </dl>
+          <ul class="globe" aria-label="Skills and tools">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>C++</li>
+            <li>LangGraph</li>
+            <li>RAG</li>
+            <li>AI agents</li>
+            <li>PyTorch</li>
+            <li>TensorFlow</li>
+            <li>scikit-learn</li>
+            <li>Hugging Face</li>
+            <li>LoRA</li>
+            <li>FastAPI</li>
+            <li>Docker</li>
+            <li>Kubernetes</li>
+            <li>Spark</li>
+            <li>PostgreSQL</li>
+            <li>Power BI</li>
+            <li>MLflow</li>
+            <li>Azure</li>
+            <li>Linux</li>
+            <li>Grafana</li>
+            <li>React</li>
+            <li>NLP</li>
+            <li>Computer vision</li>
+            <li>ETL</li>
+            <li>Jenkins</li>
+            <li>GitLab CI</li>
+            <li>Prometheus</li>
+            <li>Ollama</li>
+            <li>Pandas</li>
+            <li>JavaScript</li>
+            <li>NumPy</li>
+            <li>Git</li>
+            <li>Embeddings</li>
+            <li>Quantization</li>
+          </ul>
         </div>
       </div>
     </section>

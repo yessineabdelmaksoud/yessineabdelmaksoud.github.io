@@ -75,9 +75,6 @@
   // Projects stack: as the next case slides over, the one underneath recedes (--c 0..1)
   var cases = Array.prototype.slice.call(document.querySelectorAll('.case'));
   var stackMode = matchMedia('(min-width: 961px) and (min-height: 700px)');
-  // Experience drum and progress line
-  var timeline = document.querySelector('.timeline');
-  var items = timeline ? Array.prototype.slice.call(timeline.children) : [];
 
   function updateDepth() {
     var vh = innerHeight;
@@ -94,17 +91,6 @@
       el.style.setProperty('--c2', (1 + (cover[i + 1] || 0)).toFixed(3));
     });
 
-    if (timeline) {
-      var tr = timeline.getBoundingClientRect();
-      timeline.style.setProperty('--tl', clamp((vh * 0.5 - tr.top) / tr.height, 0, 1).toFixed(3));
-      items.forEach(function (li) {
-        var r = li.querySelector('summary').getBoundingClientRect();
-        var d = clamp((r.top + r.height / 2 - vh / 2) / (vh * 0.6), -1, 1);
-        li.style.setProperty('--d', d.toFixed(3));
-        li.style.setProperty('--ad', Math.abs(d).toFixed(3));
-        li.classList.toggle('passed', r.top + r.height / 2 < vh / 2);
-      });
-    }
   }
   if (!reduce) {
     var depthTicking = false;
@@ -113,8 +99,82 @@
     };
     addEventListener('scroll', requestDepth, { passive: true });
     addEventListener('resize', requestDepth);
-    if (timeline) timeline.addEventListener('toggle', requestDepth, true);
     updateDepth();
+  }
+
+  // Experience: one job open at a time. When the timeline fits on screen it is pinned,
+  // and scrolling through the track opens each job in turn.
+  var track = document.querySelector('.exp-track');
+  if (track) {
+    var timeline = track.querySelector('.timeline');
+    var jobs = Array.prototype.slice.call(track.querySelectorAll('.job'));
+    var header = document.querySelector('.top');
+    var active = 0, pinned = false;
+    track.style.setProperty('--jobs', jobs.length);
+
+    var setActive = function (i) {
+      active = i;
+      jobs.forEach(function (job, j) {
+        var on = j === i;
+        job.classList.toggle('open', on);
+        job.classList.toggle('passed', j < i);
+        job.querySelector('.job-head').setAttribute('aria-expanded', on ? 'true' : 'false');
+      });
+    };
+    var measure = function () {
+      var top = header.offsetHeight + 16;
+      // Pinned height with the longest job open: everything except the open body, plus the tallest body
+      var bodies = jobs.map(function (job) { return job.querySelector('.job-body > div'); });
+      track.classList.add('pinned');
+      var openBody = track.querySelector('.job.open .job-body > div');
+      var rest = track.querySelector('.exp-pin').offsetHeight - (openBody ? openBody.offsetHeight : 0);
+      var tallest = Math.max.apply(null, bodies.map(function (b) { return b.scrollHeight; }));
+      pinned = !reduce && rest + tallest + top + 8 <= innerHeight;
+      track.classList.toggle('pinned', pinned);
+      track.style.setProperty('--pin-top', top + 'px');
+      onScroll();
+    };
+    var progress = function () {
+      var pad = parseFloat(getComputedStyle(track, '::after').height) || 1;
+      var top = parseFloat(track.style.getPropertyValue('--pin-top')) || 96;
+      return clamp((top - track.getBoundingClientRect().top) / pad, 0, 1);
+    };
+    var onScroll = function () {
+      if (pinned) {
+        var p = progress();
+        var i = Math.min(jobs.length - 1, Math.floor(p * jobs.length));
+        if (i !== active) setActive(i);
+        timeline.style.setProperty('--tl', p.toFixed(3));
+      } else {
+        var r = timeline.getBoundingClientRect();
+        timeline.style.setProperty('--tl', clamp((innerHeight * 0.5 - r.top) / r.height, 0, 1).toFixed(3));
+      }
+    };
+
+    jobs.forEach(function (job, i) {
+      job.querySelector('.job-head').addEventListener('click', function () {
+        if (pinned) {
+          // Jump to the middle of this job's stretch of the track
+          var pad = parseFloat(getComputedStyle(track, '::after').height);
+          var top = parseFloat(track.style.getPropertyValue('--pin-top')) || 96;
+          var y = scrollY + track.getBoundingClientRect().top - top + ((i + 0.5) / jobs.length) * pad;
+          scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+        } else {
+          setActive(i === active && job.classList.contains('open') ? -1 : i);
+          // Jobs above may close, so keep the tapped one in view once the motion settles
+          setTimeout(function () {
+            var r = job.getBoundingClientRect();
+            if (r.top < header.offsetHeight) scrollTo({ top: scrollY + r.top - header.offsetHeight - 12, behavior: reduce ? 'auto' : 'smooth' });
+          }, 720);
+        }
+      });
+    });
+
+    addEventListener('scroll', function () { requestAnimationFrame(onScroll); }, { passive: true });
+    var measureTimer;
+    addEventListener('resize', function () { clearTimeout(measureTimer); measureTimer = setTimeout(measure, 150); });
+    if (document.fonts) document.fonts.ready.then(measure);
+    measure();
   }
 
   // Contact heading: split into letters that flip up in turn. Screen readers get the plain heading.
