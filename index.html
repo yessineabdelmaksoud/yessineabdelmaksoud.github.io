@@ -6,7 +6,7 @@
   <title>Yessine Abdelmaksoud | Software &amp; AI Engineer, Faculty of Sciences of Sfax</title>
   <meta name="description" content="Yessine Abdelmaksoud, software and AI engineer from Sfax, Tunisia. Data engineering student at the Faculty of Sciences of Sfax, CTO of Trinova, freelance web developer.">
   <meta name="author" content="Yessine Abdelmaksoud">
-  <meta name="keywords" content="Yessine Abdelmaksoud, software engineer, AI engineer, data engineer, Faculty of Sciences of Sfax, FSS, Faculté des Sciences de Sfax, University of Sfax, Trinova, CTO, freelance web developer, Tunisia, PFE internship">
+  <meta name="keywords" content="Yessine Abdelmaksoud, software engineer, AI engineer, data engineer, Faculty of Sciences of Sfax, FSS, Faculté des Sciences de Sfax, University of Sfax, Trinova, CTO, AI agents, multi-agent systems, business automation, dashboards, freelance web developer, Tunisia, PFE internship">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://yessineabdelmaksoud.github.io/">
   <!-- Paste the token from Google Search Console here to verify the site -->
@@ -28,8 +28,7 @@
   <meta name="twitter:description" content="Data engineering student at the Faculty of Sciences of Sfax, CTO of Trinova, freelance web developer.">
   <meta name="twitter:image" content="https://yessineabdelmaksoud.github.io/assets/img/og.jpg">
 
-  <meta name="theme-color" content="#ECEEF1" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0D1424" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ECEEF1">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
@@ -38,7 +37,7 @@
     (function () {
       var t = null;
       try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t !== 'light' && t !== 'dark') t = 'light';
       document.documentElement.setAttribute('data-theme', t);
       document.documentElement.classList.add('js');
     })();
@@ -86,7 +85,7 @@
         { "@type": "Occupation", "name": "Freelance web developer" }
       ],
       "seeks": { "@type": "Demand", "description": "Final-year (PFE) internship in AI engineering, data engineering or software engineering" },
-      "knowsAbout": ["Software engineering", "Artificial intelligence", "Large language models", "AI agents", "LangGraph", "Retrieval-augmented generation", "Machine learning", "Data engineering", "FastAPI", "Docker", "Kubernetes", "MLOps", "Web development", "React"],
+      "knowsAbout": ["Software engineering", "Multi-agent systems", "Business automation", "Digital transformation", "Dashboards", "Data analysis", "Artificial intelligence", "Large language models", "AI agents", "LangGraph", "Retrieval-augmented generation", "Machine learning", "Data engineering", "FastAPI", "Docker", "Kubernetes", "MLOps", "Web development", "React"],
       "award": ["1st Place, fit-tech, IEEE ENIS 2025", "1st Place, Master Faster 2025, Google Developer Student Club FSS", "5th Place, TSYB 13 AESS Challenge, IEEE 2025"],
       "sameAs": [
         "https://github.com/yessineabdelmaksoud",
@@ -145,23 +144,29 @@
     </section>
 
     <section class="now band" id="now" aria-labelledby="now-h">
-      <h2 id="now-h">What I'm doing now</h2>
+      <div class="section-head">
+        <h2 id="now-h">What I'm doing now</h2>
+        <p>As CTO of Trinova and as a freelancer, I help businesses go digital: from their first website to AI agents that take work off their hands.</p>
+      </div>
       <div class="now-grid">
-        <article>
-          <h3>CTO at Trinova</h3>
-          <p>Trinova is a small studio that builds websites, web apps, automations and AI tools for businesses. I own the technical side: architecture, stack choices, code review, and getting each project live.</p>
-          <a class="text-link" href="https://www.instagram.com/trinova.tn/" rel="noopener" target="_blank">See Trinova's work on Instagram</a>
+        <article data-s3d>
+          <h3>AI agents and multi-agent systems</h3>
+          <p>Agents that handle real business tasks, and teams of agents that pass work to each other: one reads the request, one checks the data, one acts. Built with LangGraph and LLMs, with a person approving what matters.</p>
         </article>
-        <article>
-          <h3>Freelance web development</h3>
-          <p>I build websites and web apps for clients, from a first landing page to booking, ordering and admin systems. Fast, accessible, and set up so search engines can find them.</p>
-          <a class="text-link" href="mailto:yessineabdelmaksoud03@gmail.com?subject=Website%20project">Tell me about your project</a>
+        <article data-s3d>
+          <h3>Websites and web apps</h3>
+          <p>Fast, accessible sites that customers can find on Google, from a first landing page to booking, ordering and admin systems.</p>
         </article>
-        <article>
-          <h3>Software developer at YouTestMe</h3>
-          <p>Remote, since June 2026. Rebuilding the GetCertified test-taking flows in React, a cross-instance admin dashboard, a RAG assistant over internal docs, and usage forecasting.</p>
+        <article data-s3d>
+          <h3>Data and dashboards</h3>
+          <p>I set up where a business keeps its data, clean and analyse it, then build dashboards that show what is happening and what to do next.</p>
+        </article>
+        <article data-s3d>
+          <h3>Automation</h3>
+          <p>Orders, reports, follow-ups and notifications that run on their own, connected to the tools the business already uses.</p>
         </article>
       </div>
+      <p class="now-foot">I also work remotely as a software developer at YouTestMe. <a class="text-link" href="https://www.instagram.com/trinova.tn/" rel="noopener" target="_blank">See Trinova's work</a> or <a class="text-link" href="mailto:yessineabdelmaksoud03@gmail.com?subject=Project%20for%20my%20business">tell me about your business</a>.</p>
     </section>
 
     <section class="projects band" id="projects" aria-labelledby="projects-h">
@@ -171,13 +176,13 @@
       </div>
 
       <article class="case" id="cicd-agents">
-        <div class="case-text">
+        <div class="case-text" data-s3d>
           <h3>Agentic CI/CD remediation</h3>
           <p class="where">Built during my AI / DevOps internship at KPIT Technologies</p>
           <p>When a build for embedded software fails, three agents take over: one diagnoses the failure, one writes a patch, one reviews it. A human approves before anything merges. Runs on K3s with Redis, MinIO and a full Prometheus, Grafana and Loki stack.</p>
           <p class="stack">LangGraph, FastAPI, GitLab CI, K3s, Ollama, Claude</p>
         </div>
-        <ol class="flow" aria-label="Data flow">
+        <ol class="flow" aria-label="Data flow" data-s3d>
           <li><b>Failed pipeline</b><span>GitLab CI logs</span></li>
           <li><b>Diagnosis agent</b><span>root cause</span></li>
           <li><b>Patch agent</b><span>candidate fix</span></li>
@@ -187,7 +192,7 @@
       </article>
 
       <article class="case" id="soc-llm">
-        <div class="case-text">
+        <div class="case-text" data-s3d>
           <h3>AI-augmented security operations</h3>
           <p class="where">Deployed in the Faculty of Sciences of Sfax data center</p>
           <p>An on-premises LLM layer on top of a security monitoring chain. It explains Wazuh and Suricata alerts in plain language, writes KQL queries to investigate them, and suggests remediation mapped to MITRE ATT&amp;CK.</p>
@@ -198,7 +203,7 @@
           <p class="stack">Qwen3-14B, Ollama, Wazuh, Suricata, Elasticsearch, FastAPI</p>
           <a class="text-link" href="https://github.com/yessineabdelmaksoud/AI-Enhanced-SIEM-Solution" rel="noopener" target="_blank">Code on GitHub</a>
         </div>
-        <ol class="flow" aria-label="Data flow">
+        <ol class="flow" aria-label="Data flow" data-s3d>
           <li><b>Wazuh + Suricata</b><span>raw alerts</span></li>
           <li><b>Qwen3-14B</b><span>on-prem, Ollama</span></li>
           <li class="out"><b>Analyst report</b><span>KQL + MITRE fixes</span></li>
@@ -206,7 +211,7 @@
       </article>
 
       <article class="case" id="llm-5g">
-        <div class="case-text">
+        <div class="case-text" data-s3d>
           <h3>Fine-tuned LLM for 5G network diagnostics</h3>
           <p>Fine-tuned Qwen2.5-1.5B-Instruct with LoRA and 4-bit quantization to explain why 5G throughput drops, using drive-test logs and gNodeB parameters. It picks the right root cause out of 8 classes more than four times as often as chance, while training only 1.18% of its parameters.</p>
           <div class="meter" role="img" aria-label="Accuracy 53.82 percent compared with a 12.5 percent random baseline">
@@ -216,7 +221,7 @@
           <p class="stack">Qwen2.5, LoRA, quantization, Hugging Face, Python</p>
           <a class="text-link" href="https://github.com/yessineabdelmaksoud/ai-telco-troubeshooting" rel="noopener" target="_blank">Code on GitHub</a>
         </div>
-        <ol class="flow" aria-label="Data flow">
+        <ol class="flow" aria-label="Data flow" data-s3d>
           <li><b>Drive tests</b><span>+ gNodeB data</span></li>
           <li><b>Qwen2.5 + LoRA</b><span>4-bit</span></li>
           <li class="out"><b>Root cause</b><span>1 of 8 classes</span></li>
@@ -224,13 +229,13 @@
       </article>
 
       <article class="case" id="stressoff">
-        <div class="case-text">
+        <div class="case-text" data-s3d>
           <h3>StressOFF, a multimodal wellness app</h3>
           <p>Combines wearable data, meal photos and your calendar to understand stress and nutrition, then talks it through with you. Four FastAPI microservices with streaming and output validation, Firebase auth, shipped in Docker to Azure Container Instances.</p>
           <p class="stack">Multimodal AI, LLM, FastAPI, Docker, Azure, Firebase, Flutter</p>
           <a class="text-link" href="https://github.com/yessineabdelmaksoud/StressOFF-app" rel="noopener" target="_blank">Code on GitHub</a>
         </div>
-        <ol class="flow" aria-label="Data flow">
+        <ol class="flow" aria-label="Data flow" data-s3d>
           <li><b>Wearables, meals, calendar</b><span>three inputs</span></li>
           <li><b>4 microservices</b><span>vision + LLM</span></li>
           <li class="out"><b>Daily insights</b><span>chat assistant</span></li>
@@ -238,12 +243,12 @@
       </article>
 
       <article class="case" id="fraud">
-        <div class="case-text">
+        <div class="case-text" data-s3d>
           <h3>Electricity and gas fraud detection</h3>
           <p>Turns raw utility billing records into predictive features, compares classifiers, and tunes the decision threshold to the cost of a missed fraud. Investigators get a prediction API, dashboards, alerts, and an explanation for every flag.</p>
           <p class="stack">Python, scikit-learn, feature engineering, APIs, dashboards</p>
         </div>
-        <ol class="flow" aria-label="Data flow">
+        <ol class="flow" aria-label="Data flow" data-s3d>
           <li><b>Billing records</b><span>raw</span></li>
           <li><b>Features + model</b><span>tuned threshold</span></li>
           <li class="out"><b>Explained alerts</b><span>API + dashboard</span></li>
@@ -251,21 +256,21 @@
       </article>
 
       <article class="case" id="cubesat">
-        <div class="case-text">
+        <div class="case-text" data-s3d>
           <h3>Real-time anomaly detection for a CubeSat</h3>
           <p class="where">5th place, IEEE TSYB 13 AESS Challenge, 2025</p>
           <p>Telemetry from a Raspberry Pi and ESP32 rig streams into an Isolation Forest that flags electrical anomalies such as single-event latch-ups as they happen.</p>
           <p class="stack">Python, Isolation Forest, Raspberry Pi, ESP32</p>
           <a class="text-link" href="https://github.com/yessineabdelmaksoud/cubesat" rel="noopener" target="_blank">Code on GitHub</a>
         </div>
-        <ol class="flow" aria-label="Data flow">
+        <ol class="flow" aria-label="Data flow" data-s3d>
           <li><b>Telemetry</b><span>Pi + ESP32</span></li>
           <li><b>Isolation Forest</b><span>streaming</span></li>
           <li class="out"><b>SEL alert</b><span>real time</span></li>
         </ol>
       </article>
 
-      <div class="more">
+      <div class="more" data-s3d>
         <h3>More on GitHub</h3>
         <ul>
           <li><a href="https://github.com/yessineabdelmaksoud/smart-whiteborad" rel="noopener" target="_blank">Smart whiteboard</a><span>Turns handwriting and diagrams into structured notes.</span></li>
@@ -281,7 +286,7 @@
     <section class="experience band" id="experience" aria-labelledby="exp-h">
       <h2 id="exp-h">Experience</h2>
       <ol class="timeline">
-        <li>
+        <li data-s3d>
           <details open>
             <summary><span class="when">Jun 2026 to now</span><span class="what"><b>Software Developer / AI Engineer</b> YouTestMe, remote</span></summary>
             <ul>
@@ -292,7 +297,7 @@
             </ul>
           </details>
         </li>
-        <li>
+        <li data-s3d>
           <details>
             <summary><span class="when">Ongoing</span><span class="what"><b>CTO</b> Trinova, Sfax</span></summary>
             <ul>
@@ -301,7 +306,7 @@
             </ul>
           </details>
         </li>
-        <li>
+        <li data-s3d>
           <details>
             <summary><span class="when">Aug 2025, Jun 2026</span><span class="what"><b>AI / DevOps Intern</b> KPIT Technologies, Sfax</span></summary>
             <ul>
@@ -311,7 +316,7 @@
             </ul>
           </details>
         </li>
-        <li>
+        <li data-s3d>
           <details>
             <summary><span class="when">Aug 2025</span><span class="what"><b>AI / DevOps Intern</b> Primatec, Sfax</span></summary>
             <ul>
@@ -320,7 +325,7 @@
             </ul>
           </details>
         </li>
-        <li>
+        <li data-s3d>
           <details>
             <summary><span class="when">Jun to Jul 2025</span><span class="what"><b>Data Scientist Intern</b> Telcotec, Sfax</span></summary>
             <ul>
@@ -335,7 +340,7 @@
     <section class="background band" id="background" aria-labelledby="bg-h">
       <h2 id="bg-h">Background</h2>
       <div class="bg-grid">
-        <div class="edu">
+        <div class="edu" data-s3d>
           <h3>Education</h3>
           <p class="degree">Engineering degree in Data Engineering</p>
           <p>Faculty of Sciences of Sfax (FSS, Faculté des Sciences de Sfax), University of Sfax, Tunisia. Final year, graduating in 2027.</p>
@@ -357,7 +362,7 @@
             <li>DeepLearning.AI Machine Learning Specialization</li>
           </ul>
         </div>
-        <div class="toolkit">
+        <div class="toolkit" data-s3d>
           <h3>Toolkit</h3>
           <dl>
             <div><dt>Languages</dt><dd>Python, SQL, C++, JavaScript</dd></div>
@@ -373,7 +378,7 @@
     </section>
 
     <section class="contact band" id="contact" aria-labelledby="contact-h">
-      <h2 id="contact-h">Hiring for a 2027 PFE internship?</h2>
+      <h2 id="contact-h" data-s3d>Hiring for a 2027 PFE internship?</h2>
       <p>I'm looking for a final-year internship in AI, data or software engineering, in Tunisia or remote. If you need a website or an automation instead, write to me too.</p>
       <a class="big-mail" href="mailto:yessineabdelmaksoud03@gmail.com">yessineabdelmaksoud03@gmail.com</a>
       <ul class="links">

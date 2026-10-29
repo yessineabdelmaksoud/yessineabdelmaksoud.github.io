@@ -47,6 +47,29 @@
   }, { threshold: 0.35 });
   document.querySelectorAll('.case').forEach(function (c) { caseObserver.observe(c); });
 
+  // Scroll-driven 3D: --p goes from 0 as an element enters to 1 once it is in place
+  var s3d = Array.prototype.slice.call(document.querySelectorAll('[data-s3d]'));
+  if (s3d.length && !reduce) {
+    document.querySelectorAll('.now-grid article').forEach(function (el, i) { el.s3dDelay = (i % 2) * 0.18; });
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var vh = innerHeight;
+      s3d.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top > vh * 1.2 || r.bottom < -vh * 0.2) return;
+        var p = (vh - r.top) / (vh * 0.55) - (el.s3dDelay || 0);
+        p = Math.max(0, Math.min(1, p));
+        p = 1 - Math.pow(1 - p, 3);
+        el.style.setProperty('--p', p.toFixed(3));
+      });
+    };
+    var request = function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    addEventListener('scroll', request, { passive: true });
+    addEventListener('resize', request);
+    update();
+  }
+
   // Portrait follows the pointer a little
   var portrait = document.querySelector('[data-tilt]');
   if (portrait && !reduce && matchMedia('(pointer: fine)').matches) {
