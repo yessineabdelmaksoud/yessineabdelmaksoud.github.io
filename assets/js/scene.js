@@ -139,13 +139,19 @@ if (renderer) {
     visW = visH * camera.aspect;
     const perPx = visH / h;
 
-    // Sphere sits behind the portrait
+    // Sphere sits behind the portrait. Layout offsets ignore the portrait's entrance
+    // animation and pointer tilt, so the centre doesn't drift with them.
+    let px = 0, py = 0;
+    for (let el = portrait; el && el !== hero; el = el.offsetParent) {
+      px += el.offsetLeft;
+      py += el.offsetTop;
+    }
+    const heroRect = hero.getBoundingClientRect();
     const c = canvas.getBoundingClientRect();
-    const p = portrait.getBoundingClientRect();
-    const cx = p.left + p.width / 2 - c.left;
-    const cy = p.top + p.height / 2 - c.top;
+    const cx = px + portrait.offsetWidth / 2 - (c.left - heroRect.left);
+    const cy = py + portrait.offsetHeight / 2 - (c.top - heroRect.top);
     uniforms.uCenter.value.set((cx - w / 2) * perPx, -(cy - h / 2) * perPx);
-    uniforms.uR.value = p.width * (w < 960 ? 0.72 : 0.8) * perPx;
+    uniforms.uR.value = portrait.offsetWidth * (w < 960 ? 0.72 : 0.8) * perPx;
 
     const cols = Math.ceil(Math.sqrt(COUNT * 2.2));
     for (let i = 0; i < COUNT; i++) {
@@ -198,11 +204,14 @@ if (renderer) {
 
   layout();
   let resizeTimer;
-  addEventListener('resize', () => {
+  // The hero changes size on window resize and when web fonts swap in,
+  // so follow the hero itself rather than the window
+  const relayout = () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => { layout(); if (!running) render(); }, 120);
-  });
-  document.fonts?.ready.then(() => { layout(); if (!running) render(); });
+  };
+  new ResizeObserver(relayout).observe(hero);
+  document.fonts?.ready.then(relayout);
 
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
