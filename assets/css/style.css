@@ -183,7 +183,7 @@ p { margin: 0 0 1em; max-width: 66ch; }
   box-shadow: 0 30px 60px -30px rgba(18, 26, 46, .55), 0 0 0 1px var(--line);
   background: #111;
 }
-.portrait img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 .portrait figcaption {
   font-size: var(--step--1); color: var(--muted);
   margin-top: .8rem; text-align: right;
