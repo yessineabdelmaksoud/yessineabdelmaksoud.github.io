@@ -1,0 +1,9 @@
+{
+  "name": "Yessine Abdelmaksoud",
+  "short_name": "Yessine",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ECEEF1",
+  "theme_color": "#3B3FE0",
+  "icons": [{ "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}
